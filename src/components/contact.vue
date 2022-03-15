@@ -1,117 +1,122 @@
 <template>
   <main>
+    <div class="contact">
+      <img src="../assets/MOI.png" alt="maxime malatier">
+      <div class="text_contact">
+        <div>
+        <h2>Maxime Malatier</h2>
+        <p><a href="mailto:maxime.malatier@gmail.com">envoyez moi un mail</a></p>
+        <h2>Mes Reseaux sociaux</h2>
+        <ul>
+          <li><a v-bind:href="contact[0].acf.twitter"><img src="../assets/twitter_yellow.png" alt=""></a></li>
+          <li><a v-bind:href="contact[0].acf.instagram"><img src="../assets/insta_yellow.png" alt=""></a></li>
+          <li><a v-bind:href="contact[0].acf.linkedin"><img src="../assets/linkedin_yellow.png" alt=""></a></li>
+        </ul>
+        </div>
+      </div>
+    </div>
 
 
   </main>
 </template>
 
 <script>
+
+import param from "../param/param";
 export default {
-  name: "contact"
+  name: "contact",
+
+  data(){
+    return{
+      contact:[],
+    }
+  },
+
+  created() {
+    axios.get(param.host+"contact")
+      .then(response=>{
+        this.contact = response.data
+        console.log("contact", this.contact);
+      }).catch(error=>console.log(error))
+  }
+
 }
 </script>
 
 <style scoped>
-input[type=text], textarea, input[type=email] {
-  width: 100%;
-  padding: 12px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  box-sizing: border-box;
-  margin-top: 6px;
-  margin-bottom: 16px;
-  margin-right: 0px;
-  margin-left: 0px;
-  resize: vertical;
-}
-label{margin-right: 0px;
-  margin-left: 0px;
-  width: 100%;}
-
-input[type=submit] {
-  background-color: #1255a2;
-  color: white;
-  padding: 12px 20px;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
+#app > main > div > img{
+  width: 50%;
 }
 
-input[type=submit]:hover {
-  background-color: #1872D9;
+.contact{
+  background-color: black;
+  display: flex;
+  flex-direction: row;
+  color: #f2e857;
 }
-
-.form {
-  /* Ajouter box-sizing */
-  box-sizing : border-box;
-  border-radius:5px;
-  background-color:#f2f2f2;
-  padding:20px;
-  width: 100%;
-  /* redéfinition 400 + 2*20 */
-  max-width: 440px;
-  margin:0 auto;
-}
-h1  {
-  color: #ffc800;
-  width: 100%;
-}
-
-main{
-  color: #F1EDDD;
-}
-h1{
-  color: #CD99AF;
-  font-family: Raleway,sans-serif;
+.contact a{
+  color: #f2e857;
+  text-decoration: none;
+  font-family: 'Raleway', sans-serif;
   font-weight: 900;
-  font-size: 85px;
-  grid-column: 2/5;
-  display: block;
+}
+
+.contact h2{
+  font-size: 34px;
+  margin-bottom: 60px;
+  margin-top: 60px;
+}
+
+.text_contact{
+  width: 50%;
+  font-size: 24px;
+}
+
+.text_contact h2{
   width: fit-content;
-  margin-bottom: 0;
-  margin-top: 5px;
+  margin-left: auto;
+  margin-right: auto;
 }
-
-.subtitle{
-  color: #3373E5;
-  font-weight: 600;
-  font-style: italic;
-  font-size: 31px;
-  grid-column: 4/6;
+.contact ul{
+  list-style: none;
+  display: flex;
+  flex-direction: row;
+  padding: 0;
   width: fit-content;
-  margin-top: 0;
-  margin-left: 23%;
+  margin-left: auto;
+  margin-right: auto;
 }
 
-h2{
-  font-size: 65px;
-  font-weight: 800;
-  text-align: right;
-  margin: 0;
-  flex: 0 1 100%;
-  margin-right: 2%;
-  padding: 15px;
+.contact ul li{
+  width: 120px;
+  height: 120px;
+  margin-right: 50px;
 }
 
-p{
-  font-size: 17px;
-  font-weight: 700;
-  margin-bottom: 30px;
-  padding: 10px;
+.contact ul li img{
+  width: 100%;
 }
 
-.form{
-  background-color: #211F1F;
-  border-radius: 20px;
-  margin-bottom: 100px;
+#app > main > div > div > div > ul > li:nth-child(3){
+  margin-right: 0;
+}
+#app > main > div > div > div > ul > li:nth-child(1){
+  width: 100px;
 }
 
-@media only screen and (max-width: 780px) {
+.text_contact a{
+  width: fit-content;
+  margin-left: auto;
+  margin-right: auto;
+}
 
+.text_contact p{
+  width: fit-content;
+  margin-left: auto;
+  margin-right: auto;
+}
 
-
-  h2{
-    font-size: 35px;
-  }
+.text_contact div{
+  margin-top: 240px;
 }
 </style>

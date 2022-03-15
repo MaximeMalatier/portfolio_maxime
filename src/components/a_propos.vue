@@ -1,75 +1,104 @@
 <template>
  <main>
+   <div class="who">
+     <img src="../assets/MOI.png" alt="">
+     <div class="text_who">
+     <h2>Qui suis - je ?</h2>
+     <p>{{about[0].acf.who}}</p>
 
+       <h2>Parcours scolaire</h2>
+       <ul>
+         <li>{{about[0].acf.parcours1}}</li>
+         <li>{{about[0].acf.parcours2}}</li>
+         <li>{{about[0].acf.parcours3}}</li>
+         <li>{{about[0].acf.parcours4}}</li>
+       </ul>
+
+
+       <a v-bind:href="imgPreUrl + about[0].acf.cv.filename" :download="about[0].acf.cv.filename">VOIR MON CV</a>
+     </div>
+   </div>
  </main>
 </template>
 
 <script>
+import param from "../param/param";
+
 export default {
-  name: "apropos"
+  name: "apropos",
+  data(){
+    return{
+      about:[],
+
+    }
+  },
+
+  created() {
+    axios.get(param.host+"about")
+      .then(response=>{
+        this.about = response.data;
+        console.log("Liste", this.about);
+      }).catch(error=>console.log(error))
+
+    this.imgPreUrl = "https://backendportfolio.maximemalatier.fr/wp-content/uploads/2022/03/"
+  }
 }
 </script>
 
 <style scoped>
 
-main{
-  color: #F1EDDD;
-}
 h1{
-  color: #CD99AF;
-  font-family: Raleway,sans-serif;
+  font-family: 'Raleway', sans-serif;
   font-weight: 900;
-  font-size: 85px;
-  grid-column: 2/5;
-  display: block;
-  width: fit-content;
-  margin-bottom: 0;
-  margin-top: 5px;
-}
-
-.subtitle{
-  color: #3373E5;
-  font-weight: 600;
-  font-style: italic;
-  font-size: 31px;
-  grid-column: 4/6;
-  width: fit-content;
-  margin-top: 0;
-  margin-left: 23%;
 }
 
 h2{
-  font-size: 65px;
-  font-weight: 800;
-  text-align: right;
-  margin: 0;
-  flex: 0 1 100%;
-  margin-right: 2%;
-  padding: 15px;
+font-size: 32px;
 }
+main{
+  color: #f2e857;
+
+}
+
 
 p{
-  font-size: 17px;
-  font-weight: 700;
-  margin-bottom: 30px;
-  padding: 10px;
+  font-size: 24px;
+}
+img{
+  display: block;
+  width: 33%;
+  margin-left: auto;
+  margin-right: auto;
 }
 
-.a_propos{
-  background-color: #211F1F;
-  border-radius: 20px;
-  margin-bottom: 225px;
-  height: 500px;
+.who{
+  background-color: black;
 }
 
-@media only screen and (max-width: 780px) {
+.who ul{
+  margin: 0;
+  margin-bottom: 25px;
+}
+.text_who{
+  width: 80%;
+  margin-left: auto;
+  margin-right: auto;
+}
+ul li{
+  font-size: 25px;
+  margin-bottom: 15px;
+}
 
-  p{
-    font-size: 16px;
-  }
-
-  h2{
-    font-size: 35px;
-  }
+a{
+  color: black;
+  font-family: 'Raleway', sans-serif;
+  font-weight: 900;
+  font-size: 32px;
+  background-color: #f2e857;
+  margin-top: 15px;
+  text-decoration: none;
+  padding: 5px;
+  border-radius: 2px;
+  margin-left: auto;
 }
 </style>
